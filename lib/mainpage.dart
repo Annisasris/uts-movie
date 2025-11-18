@@ -1,14 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uts_movie/welcomepage.dart';
 import 'package:uts_movie/widgets/toprated_widget.dart';
 import 'package:uts_movie/widgets/trending_widget.dart';
 import 'package:uts_movie/widgets/upcoming_widget.dart';
 
 import 'api/api.dart';
 import 'models/movies.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -21,10 +19,6 @@ class _MainPageState extends State<MainPage> {
   late Future<List<Movies>> trendingMovies;
   late Future<List<Movies>> topRatedMovie;
   late Future<List<Movies>> upComingMovies;
-
-  void _signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
 
   @override
   void initState() {
@@ -39,36 +33,44 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.red,
-        ),
-        actions: <Widget>[
-          Padding(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80),
+        child: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (contex) => const WelcomePage()));
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.red,
+          ),
+          actions: <Widget>[
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  // _signOut();
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (contex) => const LoginPage()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (contex) => const WelcomePage()));
                 },
                 child: Icon(
                   Icons.logout_outlined,
                   color: Colors.redAccent[700],
                   size: 38,
                 ),
-              ))
-        ],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Image.asset(
-          'assets/logo-pelem.png',
-          fit: BoxFit.cover,
-          height: 40,
-          width: 120,
+              ),
+            )
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Image.asset(
+            'assets/logo.png',
+            fit: BoxFit.cover,
+            height: 80,
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
