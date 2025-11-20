@@ -19,12 +19,10 @@ class WelcomePage extends StatelessWidget {
                 SizedBox(
                   height: 150,
                   child: Center(
-                    child: Text(
-                      'ICA PILEM',
-                      style: GoogleFonts.bebasNeue(
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.redAccent[700]),
+                    child: Image.asset(
+                      'assets/logo.png',
+                      fit: BoxFit.cover,
+                      height: 150,
                     ),
                   ),
                 ),
